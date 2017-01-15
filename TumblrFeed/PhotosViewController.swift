@@ -44,8 +44,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         // This is how we get the 'response' field
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
-                        print(self.posts)
-
+                        print("api get done")
                         
                         // This is where you will store the returned array of posts in your posts property
                         // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
@@ -64,5 +63,22 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("calling!")
+        // Get the index path from the cell that was tapped
+        let indexPath = photoTable.indexPathForSelectedRow
+        // Get the Row of the Index Path and set as index
+        let index = indexPath?.row
+        // Get in touch with the DetailViewController
+        let detailViewController = segue.destination as! PhotoCellViewController
+        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
+        let movie = self.posts[index!]
+        let title  = movie["summary"] as! String
+        detailViewController.titleLabel?.text = title
+        print("segue commencing")
+    }
+    
+
 
 }
