@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AFNetworking
+
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
@@ -18,6 +20,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         photoTable.delegate = self
         photoTable.dataSource = self
+        photoTable.rowHeight = 240
         self.tumblrGet()
         // Do any additional setup after loading the view.
     }
@@ -38,16 +41,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
-                        //print("responseDictionary: \(responseDictionary)")
-                        
-                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
-                        // This is how we get the 'response' field
+
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
-                        print("api get done")
-                        
-                        // This is where you will store the returned array of posts in your posts property
-                        // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
+                        self.photoTable.reloadData()
+
                     }
                 }
         });
@@ -55,17 +53,32 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        print("I have \(self.posts.count) posts")
+        return self.posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
+        let post = posts[indexPath.row]
+        let photos = post.value(forKeyPath: "photos") as? [NSDictionary]
+        if let photos = post.value(forKeyPath: "photos") as? [NSDictionary] {
+            // photos is NOT nil, go ahead and access element 0 and run the code in the curly braces
+            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
+            if let imageUrl = URL(string: imageUrlString!) {
+                // URL(string: imageUrlString!) is NOT nil, go ahead and unwrap it and assign it to imageUrl and run the code in the curly braces
+                cell.photoImage.setImageWith(imageUrl)
+            } else {
+                // URL(string: imageUrlString!) is nil. Good thing we didn't try to unwrap it!
+            }
+
+        } else {
+            // photos is nil. Good thing we didn't try to unwrap it!
+        }
         
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("calling!")
         // Get the index path from the cell that was tapped
         let indexPath = photoTable.indexPathForSelectedRow
         // Get the Row of the Index Path and set as index
@@ -74,9 +87,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let detailViewController = segue.destination as! PhotoCellViewController
         // Pass on the data to the Detail ViewController by setting it's indexPathRow value
         let movie = self.posts[index!]
-        let title  = movie["summary"] as! String
-        detailViewController.titleLabel?.text = title
-        print("segue commencing")
     }
     
 

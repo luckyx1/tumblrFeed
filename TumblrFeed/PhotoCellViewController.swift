@@ -10,11 +10,9 @@ import UIKit
 
 class PhotoCellViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "No title set"
 
         // Do any additional setup after loading the view.
     }

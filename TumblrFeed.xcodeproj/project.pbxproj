@@ -53,6 +53,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		48480B121E2B4EF20093FAEF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				48EE0FB51E2B0DDB00C7DBEF /* PhotosViewController.swift */,
+				48480B101E2B45E60093FAEF /* PhotoCellViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		48480B131E2B4F060093FAEF /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				48480B0E1E2B16A80093FAEF /* PhotoCell.swift */,
+			);
+			name = TableCell;
+			sourceTree = "<group>";
+		};
 		48EE0F971E2B0C8500C7DBEF = {
 			isa = PBXGroup;
 			children = (
@@ -74,14 +91,13 @@
 		48EE0FA21E2B0C8500C7DBEF /* TumblrFeed */ = {
 			isa = PBXGroup;
 			children = (
+				48480B131E2B4F060093FAEF /* TableCell */,
+				48480B121E2B4EF20093FAEF /* Controllers */,
 				48EE0FA31E2B0C8500C7DBEF /* AppDelegate.swift */,
 				48EE0FA71E2B0C8500C7DBEF /* Main.storyboard */,
 				48EE0FAA1E2B0C8500C7DBEF /* Assets.xcassets */,
 				48EE0FAC1E2B0C8500C7DBEF /* LaunchScreen.storyboard */,
 				48EE0FAF1E2B0C8500C7DBEF /* Info.plist */,
-				48EE0FB51E2B0DDB00C7DBEF /* PhotosViewController.swift */,
-				48480B0E1E2B16A80093FAEF /* PhotoCell.swift */,
-				48480B101E2B45E60093FAEF /* PhotoCellViewController.swift */,
 			);
 			path = TumblrFeed;
 			sourceTree = "<group>";
