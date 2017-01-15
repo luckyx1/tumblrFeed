@@ -8,13 +8,16 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     var posts: [NSDictionary] = []
 
+    @IBOutlet weak var photoTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        photoTable.delegate = self
+        photoTable.dataSource = self
         self.tumblrGet()
         // Do any additional setup after loading the view.
     }
@@ -50,6 +53,16 @@ class PhotosViewController: UIViewController {
                 }
         });
         task.resume()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
+        
+        return cell
     }
 
 }

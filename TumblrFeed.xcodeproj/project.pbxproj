@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48480B0F1E2B16A80093FAEF /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48480B0E1E2B16A80093FAEF /* PhotoCell.swift */; };
 		48EE0FA41E2B0C8500C7DBEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EE0FA31E2B0C8500C7DBEF /* AppDelegate.swift */; };
 		48EE0FA91E2B0C8500C7DBEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48EE0FA71E2B0C8500C7DBEF /* Main.storyboard */; };
 		48EE0FAB1E2B0C8500C7DBEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48EE0FAA1E2B0C8500C7DBEF /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		0D4C2B66CB8537BA948124F6 /* Pods-TumblrFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TumblrFeed.release.xcconfig"; path = "Pods/Target Support Files/Pods-TumblrFeed/Pods-TumblrFeed.release.xcconfig"; sourceTree = "<group>"; };
+		48480B0E1E2B16A80093FAEF /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		48EE0FA01E2B0C8500C7DBEF /* TumblrFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TumblrFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48EE0FA31E2B0C8500C7DBEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48EE0FA81E2B0C8500C7DBEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				48EE0FAC1E2B0C8500C7DBEF /* LaunchScreen.storyboard */,
 				48EE0FAF1E2B0C8500C7DBEF /* Info.plist */,
 				48EE0FB51E2B0DDB00C7DBEF /* PhotosViewController.swift */,
+				48480B0E1E2B16A80093FAEF /* PhotoCell.swift */,
 			);
 			path = TumblrFeed;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48EE0FA41E2B0C8500C7DBEF /* AppDelegate.swift in Sources */,
+				48480B0F1E2B16A80093FAEF /* PhotoCell.swift in Sources */,
 				48EE0FB61E2B0DDB00C7DBEF /* PhotosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
