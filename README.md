@@ -1,10 +1,16 @@
-# Lab 1 - *Tumblr Feed*
+# Lab 2/1 - *Tumblr Feed*
 
 **Tumblr Feed** is a lab assignment to get familiarized with Swift networking with tumblr API.
 
-Time spent: **2** hours spent in total
+Time spent: **3** hours spent in total
 
 ## User Stories
+- [x] Milestone 1: Build the Details Screen
+- [ ] Milestone 2: Add Pull to Refresh
+- [ ] Milestone 3: Infinite Scrolling
+- [ ] Optional 1: Add Avatar and Publish Dates.
+- [ ] Optional 2: Zoomable Photo View
+
 
 
 ## License

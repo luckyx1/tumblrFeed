@@ -15,14 +15,26 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var posts: [NSDictionary] = []
 
     @IBOutlet weak var photoTable: UITableView!
+    let refreshControl = UIRefreshControl()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         photoTable.delegate = self
         photoTable.dataSource = self
         photoTable.rowHeight = 240
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
+
+        // add refresh control to table view
+        photoTable.insertSubview(refreshControl, at: 0)
+
+
         self.tumblrGet()
         // Do any additional setup after loading the view.
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+       self.tumblrGet()
     }
 
     
@@ -45,7 +57,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
                         self.photoTable.reloadData()
-
+                        // Tell the refreshControl to stop spinning
+                        self.refreshControl.endRefreshing()
                     }
                 }
         });
@@ -78,16 +91,19 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the index path from the cell that was tapped
-        let indexPath = photoTable.indexPathForSelectedRow
-        // Get the Row of the Index Path and set as index
-        let index = indexPath?.row
-        // Get in touch with the DetailViewController
-        let detailViewController = segue.destination as! PhotoCellViewController
-        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
-        let movie = self.posts[index!]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var indexPath = photoTable.indexPath(for: sender as! UITableViewCell)
+        // Get in touch with the DetailViewController
+        var vc = segue.destination as! PhotoDetailsViewController
+        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
+        let cell = self.tableView(self.photoTable, cellForRowAt: indexPath!) as! PhotoCell
+        vc.image = cell.photoImage.image
+    }
+    
     
 
 

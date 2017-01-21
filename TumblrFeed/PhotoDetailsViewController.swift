@@ -8,11 +8,14 @@
 
 import UIKit
 
-class PhotoCellViewController: UIViewController {
+class PhotoDetailsViewController: UIViewController {
+    @IBOutlet weak var DetailImage: UIImageView!
+    var image: UIImage!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.DetailImage.image = image
 
         // Do any additional setup after loading the view.
     }
