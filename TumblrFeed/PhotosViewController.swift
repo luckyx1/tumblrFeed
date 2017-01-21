@@ -10,12 +10,14 @@ import UIKit
 import AFNetworking
 
 
-class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate   {
     
     var posts: [NSDictionary] = []
 
     @IBOutlet weak var photoTable: UITableView!
     let refreshControl = UIRefreshControl()
+    var isMoreDataLoading = false
+
 
     
     override func viewDidLoad() {
@@ -59,10 +61,29 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         self.photoTable.reloadData()
                         // Tell the refreshControl to stop spinning
                         self.refreshControl.endRefreshing()
+                        // Update flag
+                        self.isMoreDataLoading = false
                     }
                 }
         });
         task.resume()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Handle scroll behavior here
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = photoTable.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - photoTable.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && photoTable.isDragging) {
+                isMoreDataLoading = true
+                
+                // ... Code to load more results ...
+                self.tumblrGet()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -6,8 +6,8 @@ Time spent: **3** hours spent in total
 
 ## User Stories
 - [x] Milestone 1: Build the Details Screen
-- [ ] Milestone 2: Add Pull to Refresh
-- [ ] Milestone 3: Infinite Scrolling
+- [x] Milestone 2: Add Pull to Refresh
+- [x] Milestone 3: Infinite Scrolling
 - [ ] Optional 1: Add Avatar and Publish Dates.
 - [ ] Optional 2: Zoomable Photo View
 
