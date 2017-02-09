@@ -15,6 +15,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var posts: [NSDictionary] = []
 
     @IBOutlet weak var photoTable: UITableView!
+    var loadingMoreView: InfiniteScrollActivityView?
     let refreshControl = UIRefreshControl()
     var isMoreDataLoading = false
 
@@ -29,6 +30,17 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
         // add refresh control to table view
         photoTable.insertSubview(refreshControl, at: 0)
+        
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRect(x: 0, y: photoTable.contentSize.height, width: photoTable.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        photoTable.addSubview(loadingMoreView!)
+        
+        var insets = photoTable.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        photoTable.contentInset = insets
 
 
         self.tumblrGet()
@@ -63,6 +75,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         self.refreshControl.endRefreshing()
                         // Update flag
                         self.isMoreDataLoading = false
+                        
+                        // Stop the loading indicator
+                        self.loadingMoreView!.stopAnimating()
                     }
                 }
         });
@@ -80,10 +95,17 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             if(scrollView.contentOffset.y > scrollOffsetThreshold && photoTable.isDragging) {
                 isMoreDataLoading = true
                 
+                // update position of loading more view and start loading indicator
+                let frame = CGRect(x: 0, y: photoTable.contentSize.height, width: photoTable.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
                 // ... Code to load more results ...
                 self.tumblrGet()
+               
             }
         }
+       
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
